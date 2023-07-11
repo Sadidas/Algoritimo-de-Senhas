@@ -2,20 +2,26 @@
 # 1°_PELOMENOS 12 CARACTERES
 # 2°_MISTURA DE LETRAS MAIUSCULAS, MINUSCULAS, SIMBOLOS E NUMEROS
 # 3°_PRECISA SER ESCRITO EM ALGUM LUGAR PARA NÃO SER ESQUECIDO
+import random
+import string
+
+numeros = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+simbolos = ['!', '@', '#', '$', '%', '&', '*', '=', '+', '/', '_', ';']
+letras = string.ascii_letters
+
+
+def salvar(senha: string):
+    nome = input(f"Com que nome você deseja salvar esta senha?\n")
+    with open("Senhas.txt", "a") as arq:
+        arq.writelines('\n')
+        arq.writelines(f'{nome}: {senha}')
+        arq.close()
+    print(f'Senha salva com o nome {nome}')
+    print("==================================================================")
 
 
 def main():
-
-    import random
-    import string
-
-    Deus = True
-
-    numeros = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-    simbolos = ['!', '@', '#', '$', '%', '&', '*', '=', '+', '/', '_', ';']
-    letras = string.ascii_letters
-
-    while Deus:
+    while True:
         senha = []
         caracteres = random.randint(12, 30)
 
@@ -38,19 +44,12 @@ def main():
         print(f'Senha gerada:{stringador}')
 
         escrever = int(input(f"Deseja salvar esta senha? (1 para sim, 0 para não)\n"))
-        if escrever == 1:
-            nome = input(f"Com que nome você deseja salvar esta senha?\n")
-            with open("Senhas.txt", "a") as arq:
-                arq.writelines('\n')
-                arq.writelines(f'{nome}: {stringador}')
-                arq.close()
-            print(f'Senha salva com o nome {nome}')
-            print("==================================================================")
-
+        if escrever:
+            salvar(stringador)
         else:
             rodar = int(input(f"Deseja rodar o algoritimo novamente? (1 para sim, 0 para não)\n"))
-            if rodar == 0:
-                Deus = False
+            if not rodar:
+                break
 
 if __name__ == '__main__':
     main()
